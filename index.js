@@ -139,6 +139,7 @@ function cleanBoard(){
 
 function disableButton(element){
     console.log(element)
+    element.removeAttribute('onclick');
     element.disabled=true;
 }
 
@@ -148,6 +149,7 @@ function enableAllButtons(){
             id = '' + line + column;
             button = document.getElementById(id);
             button.disabled=false;
+            button.setAttribute('onclick', 'setPlay(this)');
         }
       }
 }
