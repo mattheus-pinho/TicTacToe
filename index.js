@@ -19,7 +19,7 @@ function start() {
     playedRounds = 0;
     round = true;
     cleanBoard();
-
+    enableAllButtons();
 }
 
 function setTablePlay(roundPlayer, cordinate)
@@ -52,6 +52,7 @@ function setPlay(element)
         setTablePlay("X", cordinate);
         playedRounds++;
         roundOwner.textContent = "'O' -> Player Round";
+        disableButton(element);
         if(winCheck()){
             roundOwner.textContent = "X won";
             insertFirework()
@@ -71,6 +72,7 @@ function setPlay(element)
         playedRounds++;
         setTablePlay("O", cordinate);
         roundOwner.textContent = "'X' -> Player Round";
+        disableButton(element);
         if(winCheck()){
             roundOwner.textContent = "O won";
             insertFirework()
@@ -154,6 +156,20 @@ function cleanBoard(){
       }
 }
 
+function disableButton(element){
+    console.log(element)
+    element.disabled=true;
+}
+
+function enableAllButtons(){
+    for (var line = 0; line < table.length; line++) {
+        for (var column = 0; column < table[line].length; column++) {
+            id = '' + line + column;
+            button = document.getElementById(id);
+            button.disabled=false;
+        }
+      }
+}
 
 function insertFirework(){
     const firework = document.getElementById('firework');
