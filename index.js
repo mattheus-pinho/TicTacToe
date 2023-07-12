@@ -1,5 +1,6 @@
 var round = true; //true = X - false = O
 var playedRounds = 0;
+var player = 'X';
 var roundOwner = document.getElementById('playerTime');
 var boardElement = document.getElementsByTagName("input");
 var cordinate = [];
@@ -43,48 +44,28 @@ function viewTable(){
 
 function setPlay(element)
 {
-
     if(round){
-
-        changeIcon(element);
-        round = false;
-        cordinate = toCordinate(element.id);
-        setTablePlay("X", cordinate);
-        playedRounds++;
-        roundOwner.textContent = "'O' -> Player Round";
-        disableButton(element);
-        if(winCheck()){
-            roundOwner.textContent = "X won";
-            insertFirework()
-        }else if(playedRounds === 9){
-            roundOwner.textContent = "no one won";
-        }
-
-        //console
-        console.log(playedRounds, " Moves were played")
-        console.log("'X' scored in position: ", element.id)
-
+        player = 'X';
     }else{
-
-        changeIcon(element);
-        round = true;
-        cordinate = toCordinate(element.id);
-        playedRounds++;
-        setTablePlay("O", cordinate);
-        roundOwner.textContent = "'X' -> Player Round";
-        disableButton(element);
-        if(winCheck()){
-            roundOwner.textContent = "O won";
-            insertFirework()
-        }else if(playedRounds === 9){
-            roundOwner.textContent = "no one won";
-        }
-
-        //console
-        console.log(playedRounds, "  Moves were played");
-        console.log("'O' scored in position: ", element.id);
-        
+        player = 'O';
     }
+
+    changeIcon(element);
+    disableButton(element);
+    setTablePlay(player, toCordinate(element.id));
+    playedRounds++;
+    roundOwner.textContent = `${player} -> Player Round`;
+    
+    if(winCheck()){
+        roundOwner.textContent = `${player} Won`;
+        insertFirework()
+    }else if(playedRounds === 9){
+        roundOwner.textContent = "No one won";
+    }
+    
+    round = !round;
+    console.log(playedRounds, " Moves were played")
+    console.log("'X' scored in position: ", element.id)
 
 }
 
